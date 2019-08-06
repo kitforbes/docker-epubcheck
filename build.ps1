@@ -10,7 +10,7 @@ begin {
 }
 
 process {
-    docker build -t kitforbes/epubcheck:$Version $PSScriptRoot
+    docker build -t kitforbes/epubcheck:$Version --build-arg EPUBCHECK_VERSION=$Version $PSScriptRoot
 }
 
 end {
