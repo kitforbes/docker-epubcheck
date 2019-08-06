@@ -6,10 +6,11 @@ RUN apk add --update bash curl unzip openjdk7 && \
 ARG EPUBCHECK_VERSION
 ENV EPUBCHECK epubcheck-$EPUBCHECK_VERSION
 
-RUN curl -L -o "/tmp/$EPUBCHECK.zip" "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK#*-}/$EPUBCHECK.zip" \
-  && unzip "/tmp/$EPUBCHECK.zip" -d /app \
+RUN curl -fsSL -o "/tmp/$EPUBCHECK.zip" --url "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK#*-}/$EPUBCHECK.zip" \
+  && unzip -q -o "/tmp/$EPUBCHECK.zip" -d /app \
   && rm "/tmp/$EPUBCHECK.zip" \
-  && ( cd /app; ln -s "$EPUBCHECK" epubcheck )
+  && ( cd /app; ln -s "$EPUBCHECK" epubcheck ) \
+  && ( cd /app/epubcheck; rm -rfv *.txt licenses; ls -l . )
 
 VOLUME ["/app/data"]
 WORKDIR /app
