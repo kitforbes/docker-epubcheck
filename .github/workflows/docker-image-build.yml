@@ -10,7 +10,7 @@ on:
       - master
 
 env:
-  IMAGE: kitforbes/epubcheck
+  IMAGE_NAME: kitforbes/epubcheck
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag ${IMAGE}:$(date +%s)
+        run: docker build . --file Dockerfile --tag ${IMAGE_NAME}:$(date +%s)
 
       - name: Display Docker images
         run: docker images
