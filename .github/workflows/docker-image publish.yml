@@ -30,7 +30,7 @@ jobs:
           IMAGE_TAG: ${{steps.setup.outputs.tag}}
 
       - name: Display Docker images
-        run: docker images
+        run: docker images "${IMAGE_NAME}"
 
       - name: Login to Docker Hub
         run: >
