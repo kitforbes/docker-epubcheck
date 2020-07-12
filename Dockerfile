@@ -1,6 +1,7 @@
 FROM alpine:3.3
 
-RUN apk add \
+RUN set -eux; \
+  apk add \
   bash \
   curl \
   unzip \
@@ -10,7 +11,8 @@ RUN apk add \
 ARG EPUBCHECK_VERSION=4.2.2
 ENV EPUBCHECK epubcheck-$EPUBCHECK_VERSION
 
-RUN curl -fsSL -o "/tmp/$EPUBCHECK.zip" --url "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK#*-}/$EPUBCHECK.zip" && \
+RUN set -eux; \
+  curl -fsSL -o "/tmp/$EPUBCHECK.zip" --url "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK#*-}/$EPUBCHECK.zip" && \
   unzip -q -o "/tmp/$EPUBCHECK.zip" -d /app && \
   rm "/tmp/$EPUBCHECK.zip" && \
   ( cd /app; ln -s "$EPUBCHECK" epubcheck ) && \
