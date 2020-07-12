@@ -9,13 +9,13 @@ Available on [Docker Hub](https://hub.docker.com/r/kitforbes/epubcheck).
 Run the PowerShell script:
 
 ```powershell
-.\build.ps1 -Version "4.2.2"
+.\build.ps1 -Version "4.2.3"
 ```
 
 Or run directly with:
 
 ```bash
-docker build --build-arg "EPUBCHECK_VERSION=4.2.2" --tag "epubcheck:4.2.2" .
+docker build --build-arg "EPUBCHECK_VERSION=4.2.3" --tag "epubcheck:4.2.3" .
 ```
 
 ## Usage
@@ -25,11 +25,11 @@ docker build --build-arg "EPUBCHECK_VERSION=4.2.2" --tag "epubcheck:4.2.2" .
 Displays the version of EPUBCheck.
 
 ```bash
-docker run --rm --name epubcheck "epubcheck:4.2.2"
+docker run --rm --name epubcheck "epubcheck:4.2.3"
 ```
 
 ```plaintext
-EPUBCheck v4.2.2
+EPUBCheck v4.2.3
 EPUBCheck completed
 No file specified in the arguments. Exiting.
 ```
@@ -39,12 +39,12 @@ No file specified in the arguments. Exiting.
 Displays help information for EPUBCheck.
 
 ```bash
-docker run --rm --name epubcheck "epubcheck:4.2.2" --help
+docker run --rm --name epubcheck "epubcheck:4.2.3" --help
 ```
 
 ```plaintext
 No file specified in the arguments. Exiting.
-EPUBCheck v4.2.2
+EPUBCheck v4.2.3
 
 When running this tool, the first argument should be the name (with the path)
 of the file to check.
