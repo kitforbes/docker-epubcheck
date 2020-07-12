@@ -10,7 +10,10 @@ begin {
 }
 
 process {
-    docker build -t kitforbes/epubcheck:$Version --build-arg EPUBCHECK_VERSION=$Version $PSScriptRoot
+    $imageName = "kitforbes/epubcheck"
+    docker build --tag "${imageName}:${Version}" --build-arg "EPUBCHECK_VERSION=$Version" $PSScriptRoot
+    docker tag "${imageName}:${Version}" "${imageName}:latest"
+    docker images "$imageName"
 }
 
 end {
