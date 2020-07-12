@@ -7,7 +7,8 @@ on:
       - published
 
 env:
-  IMAGE_NAME: kitforbes/epubcheck
+  REGISTRY: kitforbes
+  IMAGE: epubcheck
 
 jobs:
   publish:
@@ -20,30 +21,30 @@ jobs:
         id: setup
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag "${IMAGE_NAME}:${IMAGE_TAG//v/}"
+        run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:${TAG//v/}"
         env:
-          IMAGE_TAG: ${{steps.setup.outputs.tag}}
+          TAG: ${{steps.setup.outputs.tag}}
 
       - name: Tag latest Docker image
-        run: docker tag "${IMAGE_NAME}:${IMAGE_TAG//v/}" "${IMAGE_NAME}:latest"
+        run: docker tag "${REGISTRY}/${IMAGE}:${TAG//v/}" "${REGISTRY}/${IMAGE}:latest"
         env:
-          IMAGE_TAG: ${{steps.setup.outputs.tag}}
+          TAG: ${{steps.setup.outputs.tag}}
 
       - name: Display Docker images
-        run: docker images "${IMAGE_NAME}"
+        run: docker images "${REGISTRY}/${IMAGE}"
 
       - name: Login to Docker Hub
         run: >
           echo "${{ secrets.DOCKERHUB_PASSWORD }}" |
-          docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+          docker login -u "${REGISTRY}" --password-stdin
 
       - name: Push tagged Docker image
-        run: docker push "${IMAGE_NAME}:${IMAGE_TAG//v/}"
+        run: docker push "${REGISTRY}/${IMAGE}:${TAG//v/}"
         env:
-          IMAGE_TAG: ${{steps.setup.outputs.tag}}
+          TAG: ${{steps.setup.outputs.tag}}
 
       - name: Push latest Docker image
-        run: docker push "${IMAGE_NAME}:latest"
+        run: docker push "${REGISTRY}/${IMAGE}:latest"
 
       - name: Logout of Docker Hub
         run: docker logout
