@@ -20,7 +20,17 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:$(date +%s)"
+        run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:ci"
+
+      - name: Tag Docker image
+        run: docker tag "${REGISTRY}/${IMAGE}:ci" "${REGISTRY}/${IMAGE}:$(date +%s)"
 
       - name: Display Docker images
         run: docker images "${REGISTRY}/${IMAGE}"
+
+      - name: Check example EPUB structure
+        run: >
+          docker run --rm
+            -v "${GITHUB_WORKSPACE}/test:/app/data"
+            "${REGISTRY}/${IMAGE}:ci"
+            "data/" --mode exp --failonwarnings --save

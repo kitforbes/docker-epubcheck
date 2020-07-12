@@ -11,3 +11,6 @@ trim_trailing_whitespace = true
 
 [*.ps1]
 indent_size = 4
+
+[mimetype]
+insert_final_newline = false
