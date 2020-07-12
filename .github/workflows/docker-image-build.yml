@@ -29,8 +29,8 @@ jobs:
         run: docker images "${REGISTRY}/${IMAGE}"
 
       - name: Check example EPUB structure
-        run: >
-          docker run --rm
-            -v "${GITHUB_WORKSPACE}/test:/app/data"
-            "${REGISTRY}/${IMAGE}:ci"
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}/test:/app/data" \
+            "${REGISTRY}/${IMAGE}:ci" \
             "data/" --mode exp --failonwarnings --save

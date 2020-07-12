@@ -34,9 +34,9 @@ jobs:
         run: docker images "${REGISTRY}/${IMAGE}"
 
       - name: Login to Docker Hub
-        run: >
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" |
-          docker login -u "${REGISTRY}" --password-stdin
+        run: |
+          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | \
+            docker login -u "${REGISTRY}" --password-stdin
 
       - name: Push tagged Docker image
         run: docker push "${REGISTRY}/${IMAGE}:${TAG//v/}"
