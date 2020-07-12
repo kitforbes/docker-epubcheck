@@ -1,17 +1,14 @@
 FROM alpine:3.3
 
-RUN set -eux; \
-  apk add \
-    bash \
-    curl \
-    unzip \
-    openjdk7 \
-  --no-cache
-
 ARG EPUBCHECK_VERSION=4.2.2
 ENV EPUBCHECK epubcheck-$EPUBCHECK_VERSION
 
 RUN set -eux; \
+  apk add --no-cache \
+    curl \
+    openjdk7 \
+    unzip \
+  && \
   curl -fsSL \
     -o "/tmp/$EPUBCHECK.zip" \
     --url "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK#*-}/$EPUBCHECK.zip" && \
@@ -22,7 +19,11 @@ RUN set -eux; \
     /app/epubcheck/*.txt \
     /app/epubcheck/licenses \
   && \
-  ls -lhAF /tmp /app
+  ls -lhAF /tmp /app && \
+  apk del --no-cache \
+    curl \
+    unzip \
+  ;
 
 VOLUME ["/app/data"]
 WORKDIR /app
