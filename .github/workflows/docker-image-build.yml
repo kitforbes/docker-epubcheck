@@ -33,4 +33,4 @@ jobs:
           docker run --rm \
             -v "${GITHUB_WORKSPACE}/test:/app/data" \
             "${REGISTRY}/${IMAGE}:ci" \
-            "data/" --mode exp --failonwarnings --save
+            "data/epubcheck-test" --mode exp --failonwarnings --save
