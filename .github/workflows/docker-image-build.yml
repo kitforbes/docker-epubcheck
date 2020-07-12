@@ -1,3 +1,4 @@
+---
 name: Docker Image CI
 
 on:
@@ -8,12 +9,17 @@ on:
     branches:
       - master
 
+env:
+  IMAGE: kitforbes/epubcheck
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag kitforbes/epubcheck:$(date +%s)
+        run: docker build . --file Dockerfile --tag ${IMAGE}:$(date +%s)
+
       - name: Display Docker images
         run: docker images

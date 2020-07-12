@@ -1,0 +1,52 @@
+---
+name: Docker Image Publish
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  IMAGE_NAME: kitforbes/epubcheck
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Prepare variables
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+        id: setup
+
+      - name: Build tagged Docker image
+        run: |
+          docker build . --file Dockerfile --tag "${IMAGE_NAME}:${IMAGE_TAG#*v}"
+        env:
+          IMAGE_TAG: ${{steps.setup.outputs.tag}}
+
+      - name: Tag latest Docker image
+        run: |
+          docker tag "${IMAGE_NAME}:${IMAGE_TAG#*v}" "${IMAGE_NAME}:latest"
+        env:
+          IMAGE_TAG: ${{steps.setup.outputs.tag}}
+
+      - name: Display Docker images
+        run: docker images
+
+      - name: Login to DockerHub
+        run: >
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push tagged Docker image
+        run: |
+          docker push "${IMAGE_NAME}:${IMAGE_TAG#*v}"
+        env:
+          IMAGE_TAG: ${{steps.setup.outputs.tag}}
+
+      - name: Push latest Docker image
+        run: docker push "${IMAGE_NAME}:latest"
+
+      - name: Logout of DockerHub
+        run: docker logout
