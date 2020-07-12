@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package version="2.0" unique-identifier="isbn" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:creator opf:file-as="Tester, A" opf:role="aut">A Tester</dc:creator>
+    <dc:date opf:event="creation">2020-07-01</dc:date>
+    <dc:date opf:event="modification">2020-07-02</dc:date>
+    <dc:date opf:event="publication">2020-07-03</dc:date>
+    <dc:identifier id="isbn" opf:scheme="ISBN">urn:isbn:000-0-0000000-0-0</dc:identifier>
+    <dc:identifier id="asin" opf:scheme="MOBI-ASIN">0000000000</dc:identifier>
+    <dc:language>en-US</dc:language>
+    <dc:publisher>Test Publishing</dc:publisher>
+    <dc:title>EPUBCheck Test</dc:title>
+    <meta content="cover" name="cover" />
+  </metadata>
+  <manifest>
+    <item id="cover" href="Images/cover.jpg" media-type="image/jpeg"/>
+    <item id="titlepage" href="Text/titlepage.xhtml" media-type="application/xhtml+xml"/>
+    <item id="title" href="Text/000_title.xhtml" media-type="application/xhtml+xml"/>
+    <item id="toc" href="Text/001_toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="chapter1" href="Text/002_chapter_1.xhtml" media-type="application/xhtml+xml"/>
+    <item id="css" href="Styles/stylesheet.css" media-type="text/css"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="title"/>
+    <itemref idref="toc"/>
+    <itemref idref="chapter1"/>
+  </spine>
+  <guide>
+    <reference type="toc" title="Contents" href="Text/001_toc.xhtml#anchor1"/>
+  </guide>
+</package>
