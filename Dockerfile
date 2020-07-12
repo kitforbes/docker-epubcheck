@@ -1,7 +1,6 @@
 FROM alpine:3.3
 
-ARG EPUBCHECK_VERSION=4.2.4
-ENV EPUBCHECK epubcheck-$EPUBCHECK_VERSION
+ARG VERSION=4.2.4
 
 RUN set -eux; \
   apk add --no-cache \
@@ -10,12 +9,12 @@ RUN set -eux; \
     unzip \
   && \
   curl -fsSL \
-    -o "/tmp/$EPUBCHECK.zip" \
-    --url "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK#*-}/$EPUBCHECK.zip" && \
-  unzip -q -o "/tmp/$EPUBCHECK.zip" -d /app && \
-  ln -sv "/app/$EPUBCHECK" /app/epubcheck && \
+    -o "/tmp/epubcheck-$VERSION.zip" \
+    --url "https://github.com/w3c/epubcheck/releases/download/v${VERSION}/epubcheck-$VERSION.zip" && \
+  unzip -q -o "/tmp/epubcheck-$VERSION.zip" -d /app && \
+  ln -sv "/app/epubcheck-$VERSION" /app/epubcheck && \
   rm -rfv \
-    "/tmp/$EPUBCHECK.zip" \
+    "/tmp/epubcheck-$VERSION.zip" \
     /app/epubcheck/*.txt \
     /app/epubcheck/licenses \
   && \
