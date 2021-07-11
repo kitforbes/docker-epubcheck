@@ -2,7 +2,7 @@
 param (
     [Parameter(Mandatory = $false)]
     [String]
-    $Version = "4.2.5"
+    $Version = "4.2.6"
 )
 
 begin {
