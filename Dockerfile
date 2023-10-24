@@ -1,6 +1,6 @@
 FROM alpine:3.3
 
-ARG VERSION=5.0.0
+ARG VERSION=5.0.1
 
 RUN set -eux; \
   apk add --no-cache \
