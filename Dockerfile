@@ -1,11 +1,11 @@
 FROM alpine:3.3
 
-ARG VERSION=4.2.6
+ARG VERSION=5.0.0
 
 RUN set -eux; \
   apk add --no-cache \
     curl \
-    openjdk7 \
+    openjdk8 \
     unzip \
   && \
   curl -fsSL \

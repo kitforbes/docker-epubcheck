@@ -2,7 +2,7 @@
 param (
     [Parameter(Mandatory = $false)]
     [String]
-    $Version = "4.2.6"
+    $Version = "5.0.0"
 )
 
 begin {
@@ -13,10 +13,9 @@ process {
     $imageName = "kitforbes/epubcheck"
     docker build `
         --tag "${imageName}:${Version}" `
+        --tag "${imageName}:latest" `
         --build-arg "EPUBCHECK_VERSION=$Version" `
         $PSScriptRoot
-
-    docker tag "${imageName}:${Version}" "${imageName}:latest"
 
     docker images "$imageName"
 
