@@ -5,7 +5,7 @@ ARG VERSION=5.1.0
 RUN set -eux; \
   apk add --no-cache \
     curl \
-    openjdk8 \
+    openjdk17 \
     unzip \
   && \
   curl -fsSL \

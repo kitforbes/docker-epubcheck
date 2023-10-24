@@ -17,8 +17,10 @@ process {
         --build-arg "EPUBCHECK_VERSION=$Version" `
         $PSScriptRoot
 
+    Write-Output ""
     docker images "$imageName"
 
+    Write-Output ""
     docker run --rm `
         -v "$PSScriptRoot/test:/app/data" `
         "${imageName}:latest" `
