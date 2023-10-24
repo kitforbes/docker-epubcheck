@@ -4,7 +4,7 @@ name: Docker Image Publish
 on:
   release:
     types:
-      - published
+    - published
 
 env:
   REGISTRY: kitforbes
@@ -14,37 +14,37 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Prepare variables
-        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-        id: setup
+    - name: Prepare variables
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+      id: setup
 
-      - name: Build Docker image
-        run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:${TAG//v/}"
-        env:
-          TAG: ${{steps.setup.outputs.tag}}
+    - name: Build Docker image
+      run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:${TAG//v/}"
+      env:
+        TAG: ${{steps.setup.outputs.tag}}
 
-      - name: Tag latest Docker image
-        run: docker tag "${REGISTRY}/${IMAGE}:${TAG//v/}" "${REGISTRY}/${IMAGE}:latest"
-        env:
-          TAG: ${{steps.setup.outputs.tag}}
+    - name: Tag latest Docker image
+      run: docker tag "${REGISTRY}/${IMAGE}:${TAG//v/}" "${REGISTRY}/${IMAGE}:latest"
+      env:
+        TAG: ${{steps.setup.outputs.tag}}
 
-      - name: Display Docker images
-        run: docker images "${REGISTRY}/${IMAGE}"
+    - name: Display Docker images
+      run: docker images "${REGISTRY}/${IMAGE}"
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | \
-            docker login -u "${REGISTRY}" --password-stdin
+    - name: Login to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKERHUB_PASSWORD }}" | \
+          docker login -u "${REGISTRY}" --password-stdin
 
-      - name: Push tagged Docker image
-        run: docker push "${REGISTRY}/${IMAGE}:${TAG//v/}"
-        env:
-          TAG: ${{steps.setup.outputs.tag}}
+    - name: Push tagged Docker image
+      run: docker push "${REGISTRY}/${IMAGE}:${TAG//v/}"
+      env:
+        TAG: ${{steps.setup.outputs.tag}}
 
-      - name: Push latest Docker image
-        run: docker push "${REGISTRY}/${IMAGE}:latest"
+    - name: Push latest Docker image
+      run: docker push "${REGISTRY}/${IMAGE}:latest"
 
-      - name: Logout of Docker Hub
-        run: docker logout
+    - name: Logout of Docker Hub
+      run: docker logout

@@ -4,10 +4,10 @@ name: Docker Image CI
 on:
   push:
     branches:
-      - master
+    - main
   pull_request:
     branches:
-      - master
+    - main
 
 env:
   REGISTRY: kitforbes
@@ -17,20 +17,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:ci"
+    - name: Build Docker image
+      run: docker build . --file Dockerfile --tag "${REGISTRY}/${IMAGE}:ci"
 
-      - name: Tag Docker image
-        run: docker tag "${REGISTRY}/${IMAGE}:ci" "${REGISTRY}/${IMAGE}:$(date +%s)"
+    - name: Tag Docker image
+      run: docker tag "${REGISTRY}/${IMAGE}:ci" "${REGISTRY}/${IMAGE}:$(date +%s)"
 
-      - name: Display Docker images
-        run: docker images "${REGISTRY}/${IMAGE}"
+    - name: Display Docker images
+      run: docker images "${REGISTRY}/${IMAGE}"
 
-      - name: Check example EPUB structure
-        run: |
-          docker run --rm \
-            -v "${GITHUB_WORKSPACE}/test:/app/data" \
-            "${REGISTRY}/${IMAGE}:ci" \
-            "data/epubcheck-test" --mode exp --failonwarnings --save
+    - name: Check example EPUB structure
+      run: |
+        docker run --rm \
+          -v "${GITHUB_WORKSPACE}/test:/app/data" \
+          "${REGISTRY}/${IMAGE}:ci" \
+          "data/epubcheck-test" --mode exp --failonwarnings --save
