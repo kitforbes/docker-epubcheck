@@ -1,6 +1,9 @@
 # docker-epubcheck
 
-Dockerfile for [EPUBCheck](https://github.com/w3c/epubcheck), available on [Docker Hub](https://hub.docker.com/r/kitforbes/epubcheck).
+> [!IMPORTANT]
+> The [EPUBCheck][epubcheck] repository have their own [Dockerfile][dockerfile] now.
+
+Dockerfile for [EPUBCheck][epubcheck], available on [Docker Hub][dockerhub].
 
 ## Build
 
@@ -106,3 +109,7 @@ Messages: 0 fatals / 0 errors / 0 warnings / 0 infos
 
 EPUBCheck completed
 ```
+
+[dockerfile]: https://github.com/w3c/epubcheck/blob/main/Dockerfile
+[dockerhub]: https://hub.docker.com/r/kitforbes/epubcheck
+[epubcheck]: https://github.com/w3c/epubcheck
